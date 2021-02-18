@@ -1,0 +1,26 @@
+{
+  "name": "bx-charcter-generator",
+  "version": "1.0.0",
+  "description": "extensible character generator for BX d&d",
+  "main": "index.js",
+  "devDependencies": {
+    "@tsconfig/svelte": "^1.0.0",
+    "parcel": "^1.12.4",
+    "parcel-bundler": "^1.12.4",
+    "parcel-plugin-svelte": "^4.0.8",
+    "svelte": "^3.32.3",
+    "svelte-preprocess": "^4.6.9",
+    "typescript": "^4.1.5"
+  },
+  "scripts": {
+    "dev": "parcel src/index.html",
+    "build": "parcel build src/index.html"
+  },
+  "keywords": [
+    "bx",
+    "d&d",
+    "character-generation"
+  ],
+  "author": "Beth Loosevelt Liam Dyer",
+  "license": "ISC"
+}
