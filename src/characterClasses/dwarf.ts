@@ -8,6 +8,13 @@ const dwarf: CharacterClass = {
   abilityMinimums: [{ ability: "CON", minimum: 9 }],
   armor: "Any, including shields",
   weapons: "Small or normal sized",
+  specialAbilities: [
+    "Detect Construction Tricks",
+    "Detect Room Traps",
+    "Infravision",
+    "Listening at Doors",
+    "Establish Underground Stronghold (level 9+)",
+  ],
 };
 
 export default dwarf;

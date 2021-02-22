@@ -9,6 +9,8 @@ export type Ability = STR | INT | WIS | DEX | CON | CHA;
 
 export type HitDice = "1d4" | "1d6" | "1d8";
 
+export type Alignment = "Chaotic" | "Neutral" | "Lawful";
+
 export interface CharacterClass {
   name: string;
   primeRequisites: Array<Ability>;
@@ -17,4 +19,5 @@ export interface CharacterClass {
   abilityMinimums?: Array<{ ability: Ability; minimum: number }>;
   weapons: string;
   armor: string;
+  specialAbilities: Array<string>;
 }

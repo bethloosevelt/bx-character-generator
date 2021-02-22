@@ -11,6 +11,14 @@ const halfling: CharacterClass = {
   ],
   armor: "Any appropriate to size, including shields",
   weapons: "Any appropriate to size",
+  specialAbilities: [
+    "Defensive Bonus",
+    "Hiding",
+    "Initiative Bonus",
+    "Listening at Doors",
+    "Missle Attack Bonus",
+    "Stronghold",
+  ],
 };
 
 export default halfling;

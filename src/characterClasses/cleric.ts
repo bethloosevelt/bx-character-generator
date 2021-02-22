@@ -7,6 +7,11 @@ const cleric: CharacterClass = {
   languages: ["Alignment", "Common"],
   weapons: "Any blunt weapons",
   armor: "Any, including shields",
+  specialAbilities: [
+    "Divine Magic",
+    "Turning the Undead",
+    "Spell Casting (level 2+)",
+  ],
 };
 
 export default cleric;
