@@ -9,7 +9,7 @@
   const roll3D6 = roll("3d6");
   const rollD20 = roll("1d20");
 
-  const abilitiesList: Array<Ability> = [
+  let abilitiesList: Array<Ability> = [
     "STR",
     "INT",
     "WIS",
@@ -26,7 +26,7 @@
     CON: roll3D6(),
     CHA: roll3D6(),
   };
-  let adjustedAbilities = rolledAbilities;
+  let adjustedAbilities = { ...rolledAbilities };
   let rawAdjustmentPointPoolCounter = 0;
   $: adjustmentPointPool = Math.floor(rawAdjustmentPointPoolCounter / 2);
 
@@ -61,13 +61,6 @@
         (cc) => cc.name === selectedCharacterClassName
       )
     : null;
-
-  // hack to reset ability adjustments because on:change for select elements is a bit busted in svelte
-  const resetAdjustments = () => {
-    adjustedAbilities = rolledAbilities;
-    adjustmentPointPool = 0;
-  };
-  $: selectedCharacterClass !== null ? resetAdjustments() : undefined;
 </script>
 
 <div>
@@ -133,21 +126,42 @@
       <option value={"Lawful"}>{"Lawful"}</option>
     </select>
 
-    {#if selectedAlignment !== null}
+    {#if selectedAlignment !== null && selectedCharacterClass !== null}
       <div>Alignment: {selectedAlignment}</div>
       <h3>Ability Class Adjustments</h3>
       <div>adjustment point pool: {adjustmentPointPool}</div>
+      <button
+        on:click={() => {
+          rawAdjustmentPointPoolCounter = 0;
+          adjustmentPointPool = 0;
+          adjustedAbilities = { ...rolledAbilities };
+        }}>reset</button
+      >
       {#each abilitiesList as abilityKey}
         <div>
           <span>{abilityKey}: </span><span>{adjustedAbilities[abilityKey]}</span
           >
-          <button
-            disabled={adjustedAbilities[abilityKey] <= 9}
-            on:click={() => {
-              adjustedAbilities[abilityKey] = adjustedAbilities[abilityKey] - 1;
-              rawAdjustmentPointPoolCounter = rawAdjustmentPointPoolCounter + 1;
-            }}>-</button
-          >
+          {#if abilityKey === "STR" || abilityKey === "INT" || abilityKey === "WIS"}
+            <button
+              disabled={adjustedAbilities[abilityKey] <= 9}
+              on:click={() => {
+                adjustedAbilities[abilityKey] =
+                  adjustedAbilities[abilityKey] - 1;
+                rawAdjustmentPointPoolCounter =
+                  rawAdjustmentPointPoolCounter + 1;
+              }}>-</button
+            >
+          {/if}
+          {#if adjustmentPointPool > 0 && (selectedCharacterClass?.primeRequisites || []).includes(abilityKey)}
+            <button
+              on:click={() => {
+                adjustedAbilities[abilityKey] =
+                  adjustedAbilities[abilityKey] + 1;
+                rawAdjustmentPointPoolCounter =
+                  rawAdjustmentPointPoolCounter - 2;
+              }}>+</button
+            >
+          {/if}
         </div>
       {/each}
     {/if}
