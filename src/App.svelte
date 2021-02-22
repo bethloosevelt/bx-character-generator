@@ -139,21 +139,35 @@
       >
       {#each abilitiesList as abilityKey}
         <div>
-          <span>{abilityKey}: </span><span>{adjustedAbilities[abilityKey]}</span
-          >
+          {#if abilityKey === "STR" || abilityKey === "INT" || abilityKey === "WIS" || (selectedCharacterClass?.primeRequisites || []).includes(abilityKey)}
+            <span
+              style={(selectedCharacterClass?.primeRequisites || []).includes(
+                abilityKey
+              )
+                ? "background: blue; color: white"
+                : ""}
+              >{abilityKey}:
+            </span><span>{adjustedAbilities[abilityKey]}</span>
+          {/if}
           {#if abilityKey === "STR" || abilityKey === "INT" || abilityKey === "WIS"}
             <button
               disabled={adjustedAbilities[abilityKey] <= 9}
               on:click={() => {
                 adjustedAbilities[abilityKey] =
                   adjustedAbilities[abilityKey] - 1;
+                const rawAdjustmentAmount = (
+                  selectedCharacterClass?.primeRequisites || []
+                ).includes(abilityKey)
+                  ? 2
+                  : 1;
                 rawAdjustmentPointPoolCounter =
-                  rawAdjustmentPointPoolCounter + 1;
+                  rawAdjustmentPointPoolCounter + rawAdjustmentAmount;
               }}>-</button
             >
           {/if}
-          {#if adjustmentPointPool > 0 && (selectedCharacterClass?.primeRequisites || []).includes(abilityKey)}
+          {#if (selectedCharacterClass?.primeRequisites || []).includes(abilityKey)}
             <button
+              disabled={adjustmentPointPool < 1}
               on:click={() => {
                 adjustedAbilities[abilityKey] =
                   adjustedAbilities[abilityKey] + 1;
