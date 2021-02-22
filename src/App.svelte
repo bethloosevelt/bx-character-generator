@@ -107,14 +107,8 @@
       <option value={cc.name}>{cc.name}</option>
     {/each}
   </select>
-  <select bind:value={selectedAlignment} name="alignment" id="alignment">
-    <option value={null}>Select Alginment</option>
-    <option value={"Chaotic"}>{"Chaotic"}</option>
-    <option value={"Neutral"}>{"Neutral"}</option>
-    <option value={"Lawful"}>{"Lawful"}</option>
-  </select>
 
-  {#if selectedCharacterClass !== null && selectedCharacterClassName !== undefined && selectedAlignment !== null}
+  {#if selectedCharacterClass !== null && selectedCharacterClassName !== undefined}
     <h3>Selected Class Info</h3>
     <div>{selectedCharacterClass?.name}</div>
     <div>HD: {selectedCharacterClass?.hitDice}</div>
@@ -126,25 +120,36 @@
     <div>Available Armor: {selectedCharacterClass?.armor}</div>
     <div>Available Weapons: {selectedCharacterClass?.weapons}</div>
     <div>Languages Spoken: {selectedCharacterClass?.languages}</div>
-    <div>Alignment: {selectedAlignment}</div>
     <h3>Class Abilities</h3>
     <div>
       Special Abilities: {selectedCharacterClass?.specialAbilities?.join(", ")}
     </div>
 
-    <h3>Ability Class Adjustments</h3>
-    <div>adjustment point pool: {adjustmentPointPool}</div>
-    {#each abilitiesList as abilityKey}
-      <div>
-        <span>{abilityKey}: </span><span>{adjustedAbilities[abilityKey]}</span>
-        <button
-          disabled={adjustedAbilities[abilityKey] <= 9}
-          on:click={() => {
-            adjustedAbilities[abilityKey] = adjustedAbilities[abilityKey] - 1;
-            rawAdjustmentPointPoolCounter = rawAdjustmentPointPoolCounter + 1;
-          }}>-</button
-        >
-      </div>
-    {/each}
+    <h3>Alignment</h3>
+    <select bind:value={selectedAlignment} name="alignment" id="alignment">
+      <option value={null}>Select Alginment</option>
+      <option value={"Chaotic"}>{"Chaotic"}</option>
+      <option value={"Neutral"}>{"Neutral"}</option>
+      <option value={"Lawful"}>{"Lawful"}</option>
+    </select>
+
+    {#if selectedAlignment !== null}
+      <div>Alignment: {selectedAlignment}</div>
+      <h3>Ability Class Adjustments</h3>
+      <div>adjustment point pool: {adjustmentPointPool}</div>
+      {#each abilitiesList as abilityKey}
+        <div>
+          <span>{abilityKey}: </span><span>{adjustedAbilities[abilityKey]}</span
+          >
+          <button
+            disabled={adjustedAbilities[abilityKey] <= 9}
+            on:click={() => {
+              adjustedAbilities[abilityKey] = adjustedAbilities[abilityKey] - 1;
+              rawAdjustmentPointPoolCounter = rawAdjustmentPointPoolCounter + 1;
+            }}>-</button
+          >
+        </div>
+      {/each}
+    {/if}
   {/if}
 </div>
