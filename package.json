@@ -6,6 +6,7 @@
   "devDependencies": {
     "@tailwindcss/postcss7-compat": "^2.0.3",
     "@tsconfig/svelte": "^1.0.0",
+    "@types/ramda": "^0.27.38",
     "@types/roll": "^1.2.0",
     "autoprefixer": "^9.8.6",
     "parcel": "^1.12.4",
@@ -29,6 +30,7 @@
   "author": "Beth Loosevelt Liam Dyer",
   "license": "ISC",
   "dependencies": {
+    "ramda": "^0.27.1",
     "roll": "^1.3.1"
   }
 }

@@ -1,9 +1,9 @@
 <script lang="ts">
   import Roll from "roll";
-  import { claim_component } from "svelte/internal";
 
   import * as characterClasses from "./characterClasses";
   import type { Alignment, Ability } from "./characterClasses/types";
+  import { calculatePrimeRequisiteModifierDisplay } from "./derivedStatisticUtil";
 
   const roller = new Roll();
   const roll = (dice: string) => (): number => roller.roll(dice).result;
@@ -71,6 +71,9 @@
     hp: availableCharacterClasses.map((cc) => rolledHitDice[cc.hitDice]),
     armor: availableCharacterClasses.map((cc) => cc.armor),
     weapons: availableCharacterClasses.map((cc) => cc.weapons),
+    primeRequisiteModifier: availableCharacterClasses.map(
+      (cc) => cc.primeRequisiteModifier
+    ),
     languages: availableCharacterClasses.map((cc) => cc.languages.join(", ")),
     specialAbilities: availableCharacterClasses.map(
       (cc) => cc.specialAbilities.join(", ") || ""
@@ -134,33 +137,39 @@
     </thead>
     <tbody>
       <tr class="bg-green-100 p-2">
-        <td>Armor</td>
+        <td class="font-bold">Armor</td>
         {#each classSelectTableData.armor as a}
           <td>{a}</td>
         {/each}
       </tr>
       <tr class="p-2">
-        <td>Weapons</td>
+        <td class="font-bold">Weapons</td>
         {#each classSelectTableData.weapons as w}
           <td>{w}</td>
         {/each}
       </tr>
       <tr class="bg-green-100 p-2">
-        <td>Health</td>
+        <td class="font-bold">Health</td>
         {#each classSelectTableData.hp as hp}
           <td>{hp}</td>
         {/each}
       </tr>
       <tr class="p-2">
-        <td>Languages</td>
+        <td class="font-bold">Languages</td>
         {#each classSelectTableData.languages as l}
           <td>{l}</td>
         {/each}
       </tr>
       <tr class="bg-green-100 p-2">
-        <td>Special Abilities</td>
+        <td class="font-bold">Special Abilities</td>
         {#each classSelectTableData.specialAbilities as s}
           <td>{s}</td>
+        {/each}
+      </tr>
+      <tr class="p-2">
+        <td class="font-bold">Prime Requisite Exp Modifier</td>
+        {#each classSelectTableData.primeRequisiteModifier as pr}
+          <td>{calculatePrimeRequisiteModifierDisplay(pr, rolledAbilities)}</td>
         {/each}
       </tr>
     </tbody>
@@ -173,7 +182,7 @@
     id="alignment"
     class={selectClasses}
   >
-    <option class="py-1" value={null}>Select Alginment</option>
+    <option class="py-1" value={null}>Select Alignment</option>
     <option class="py-1" value={"Chaotic"}>{"Chaotic"}</option>
     <option class="py-1" value={"Neutral"}>{"Neutral"}</option>
     <option class="py-1" value={"Lawful"}>{"Lawful"}</option>
