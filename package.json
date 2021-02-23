@@ -4,17 +4,21 @@
   "description": "extensible character generator for BX d&d",
   "main": "index.js",
   "devDependencies": {
+    "@tailwindcss/postcss7-compat": "^2.0.3",
     "@tsconfig/svelte": "^1.0.0",
     "@types/roll": "^1.2.0",
+    "autoprefixer": "^9.8.6",
     "parcel": "^1.12.4",
     "parcel-bundler": "^1.12.4",
     "parcel-plugin-svelte": "^4.0.8",
+    "postcss": "^7.0.35",
     "svelte": "^3.32.3",
     "svelte-preprocess": "^4.6.9",
+    "tailwindcss": "npm:@tailwindcss/postcss7-compat@^2.0.3",
     "typescript": "^4.1.5"
   },
   "scripts": {
-    "dev": "parcel src/index.html",
+    "dev": "NODE_ENV=development parcel src/index.html",
     "build": "parcel build src/index.html"
   },
   "keywords": [
