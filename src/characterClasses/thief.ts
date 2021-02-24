@@ -1,8 +1,10 @@
 import type { CharacterClass } from "./types";
+import { defaultPrimeRequisiteModifierTableForAbility } from "./types";
 
 const halfling: CharacterClass = {
   name: "Thief",
   primeRequisites: ["DEX"],
+  primeRequisiteModifier: defaultPrimeRequisiteModifierTableForAbility("DEX"),
   hitDice: "1d4",
   languages: ["Alignment", "Common"],
   armor: "Leather, no shields",

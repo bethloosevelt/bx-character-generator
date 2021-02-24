@@ -4,6 +4,7 @@
 
   import * as characterClasses from "./characterClasses";
   import type { Alignment, Ability } from "./characterClasses/types";
+  import { calculatePrimeRequisiteModifierDisplay } from "./derivedStatisticUtil";
 
   const roller = new Roll();
   const roll = (dice: string) => (): number => roller.roll(dice).result;
@@ -120,12 +121,18 @@
       </thead>
       {#each availableCharacterClasses as cc, idx}
         <tr style={`${idx % 2 === 0 ? "background: #d4e8cf;" : ""}`}>
-          <td class="p-4">{cc.name}</td>
+          <td class="p-4 font-bold">{cc.name}</td>
           <td class="p-4">{cc.armor}</td>
           <td class="p-4">{cc.weapons}</td>
           <td class="p-4">{cc.hitDice}</td>
           <td class="p-4">{cc.languages.join(", ")}</td>
           <td class="p-4">{cc.specialAbilities.join(", ")}</td>
+          <td class="p-4"
+            >{calculatePrimeRequisiteModifierDisplay(
+              cc.primeRequisiteModifier,
+              rolledAbilities
+            )}</td
+          >
         </tr>
       {/each}
     </table>
@@ -138,7 +145,7 @@
     id="alignment"
     class={selectClasses}
   >
-    <option class="py-1" value={null}>Select Alginment</option>
+    <option class="py-1" value={null}>Select Alignment</option>
     <option class="py-1" value={"Chaotic"}>{"Chaotic"}</option>
     <option class="py-1" value={"Neutral"}>{"Neutral"}</option>
     <option class="py-1" value={"Lawful"}>{"Lawful"}</option>

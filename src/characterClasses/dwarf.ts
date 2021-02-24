@@ -1,8 +1,10 @@
 import type { CharacterClass } from "./types";
+import { defaultPrimeRequisiteModifierTableForAbility } from "./types";
 
 const dwarf: CharacterClass = {
   name: "Dwarf",
   primeRequisites: ["STR"],
+  primeRequisiteModifier: defaultPrimeRequisiteModifierTableForAbility("STR"),
   hitDice: "1d8",
   languages: ["Alignment", "Common", "Dwarvish", "Gnomish", "Goblin", "Kobold"],
   abilityMinimums: [{ ability: "CON", minimum: 9 }],
