@@ -104,11 +104,11 @@
       </div>
     </div>
   </div>
-  <h2 style="font-family: FuturaCondensed-Bold;" class="pb-2 text-2xl">
+  <h2 style="font-family: Economica-Bold;" class="pb-2 text-2xl">
     Choose Available Class
   </h2>
   <div class="pr-16 pl-16 pb-8">
-    <table class="table-auto">
+    <table class="table-auto" style="font-family: Economica-Regular">
       <thead>
         <tr>
           <th class="p-4">Class</th>
@@ -120,8 +120,15 @@
         </tr>
       </thead>
       {#each availableCharacterClasses as cc, idx}
-        <tr style={`${idx % 2 === 0 ? "background: #d4e8cf;" : ""}`}>
-          <td class="p-4 font-bold">{cc.name}</td>
+        <tr
+          class="box-border cursor-pointer hover:border-black border-2"
+          style={`${
+            idx % 2 === 0 ? "background: #dbe8d4;" : ""
+          } margin-top: 2px;`}
+        >
+          <td class="p-4 font-bold" style="font-family: Economica-Bold;"
+            >{cc.name}</td
+          >
           <td class="p-4">{cc.armor}</td>
           <td class="p-4">{cc.weapons}</td>
           <td class="p-4">{cc.hitDice}</td>
