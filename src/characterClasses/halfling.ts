@@ -3,6 +3,24 @@ import type { CharacterClass } from "./types";
 const halfling: CharacterClass = {
   name: "Halfling",
   primeRequisites: ["DEX", "STR"],
+  primeRequisiteModifier: [
+    {
+      condition: {
+        type: "AND",
+        first: { type: "IN_RANGE", ability: "DEX", min: 16, max: 18 },
+        second: { type: "IN_RANGE", ability: "STR", min: 16, max: 18 },
+      },
+      result: 0.1,
+    },
+    {
+      condition: {
+        type: "OR",
+        first: { type: "IN_RANGE", ability: "DEX", min: 13, max: 15 },
+        second: { type: "IN_RANGE", ability: "STR", min: 13, max: 15 },
+      },
+      result: 0.05,
+    },
+  ],
   hitDice: "1d6",
   languages: ["Alignment", "Common", "Halfling"],
   abilityMinimums: [
