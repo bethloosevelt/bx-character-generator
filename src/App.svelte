@@ -60,11 +60,14 @@
   const selectClasses = "w-full border bg-white rounded px-3 py-2 outline-none";
 </script>
 
-<div class="text-center">
+<div class="text-center text-gray-900">
   <h1 class="text-5xl pt-8 pb-7" style="font-family: BungeeShade;">
     BX D&D Character Generator
   </h1>
-  <div class="pt-8 pb-16 w-full flex flex-row justify-center">
+  <div
+    class="pt-8 pb-16 w-full flex flex-row justify-center"
+    style="font-family: ScalaSans-Regular;"
+  >
     <div class="w-1/3 flex flex-row justify-between text-2xl">
       <div class="flex flex-col align-middle">
         <div>STR</div>
@@ -108,7 +111,7 @@
     Choose Available Class
   </h2>
   <div class="pr-16 pl-16 pb-8">
-    <table class="table-auto" style="font-family: Economica-Regular">
+    <table class="table-auto" style="font-family: ScalaSans-Regular">
       <thead>
         <tr>
           <th class="p-4">Class</th>
@@ -121,15 +124,13 @@
       </thead>
       {#each availableCharacterClasses as cc, idx}
         <tr
-          class="box-border cursor-pointer hover:border-black border-2"
-          style={`${
-            idx % 2 === 0 ? "background: #dbe8d4;" : ""
-          } margin-top: 2px;`}
+          style={`${idx % 2 === 0 ? "background: #dbe8d4;" : ""}`}
+          class="box-border cursor-pointer hover:bg-gray-900 hover:text-white"
         >
-          <td class="p-4 font-bold" style="font-family: Economica-Bold;"
+          <td class="p-4 font-bold" style="font-family: ScalaSans-Regular;"
             >{cc.name}</td
           >
-          <td class="p-4">{cc.armor}</td>
+          <td class="p-4" style="margin-top: 2px;">{cc.armor}</td>
           <td class="p-4">{cc.weapons}</td>
           <td class="p-4">{cc.hitDice}</td>
           <td class="p-4">{cc.languages.join(", ")}</td>
