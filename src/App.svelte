@@ -1,14 +1,21 @@
 <script lang="ts">
   import Roll from "roll";
-  import { claim_component } from "svelte/internal";
+  import { adjust, difference, reduce } from "ramda";
 
   import * as characterClasses from "./characterClasses";
-  import type { Alignment, Ability } from "./characterClasses/types";
+  import type {
+    Alignment,
+    Ability,
+    CharacterClass,
+  } from "./characterClasses/types";
   import { calculatePrimeRequisiteModifierDisplay } from "./derivedStatisticUtil";
 
   const roller = new Roll();
   const roll = (dice: string) => (): number => roller.roll(dice).result;
   const roll3D6 = roll("3d6");
+
+  let selectedCharacterClass: CharacterClass | null = null;
+  let selectedAlignment: Alignment | null = null;
 
   let abilitiesList: Array<Ability> = [
     "STR",
@@ -27,15 +34,6 @@
     CON: roll3D6(),
     CHA: roll3D6(),
   };
-  let adjustedAbilities = { ...rolledAbilities };
-  let rawAdjustmentPointPoolCounter = 0;
-  $: adjustmentPointPool = Math.floor(rawAdjustmentPointPoolCounter / 2);
-
-  interface RolledHitDice {
-    "1d4": number;
-    "1d6": number;
-    "1d8": number;
-  }
 
   const availableCharacterClasses = characterClasses.all.filter((cc) =>
     cc.abilityMinimums
@@ -47,20 +45,49 @@
       : true
   );
 
-  let selectedCharacterClassName: string | null = null;
-  let selectedAlignment: Alignment | null = null;
-  $: selectedCharacterClass = selectedCharacterClassName
-    ? availableCharacterClasses.find(
-        (cc) => cc.name === selectedCharacterClassName
-      )
-    : null;
+  const onSelectCharacterClass = (name: string) => () => {
+    selectedCharacterClass =
+      availableCharacterClasses.find((cc) => cc.name === name) || null;
+  };
 
-  const buttonClasses =
-    "focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-green-500 hover:bg-green-600 hover:shadow-lg";
-  const selectClasses = "w-full border bg-white rounded px-3 py-2 outline-none";
+  const adjustableAbilities: Array<Ability> = ["STR", "INT", "WIS"];
+
+  $: adjustedAbilities = { ...rolledAbilities };
+  let adjustmentPointPool = 0;
+
+  const decrementBaseAbility = (ability: Ability) => () => {
+    if (adjustedAbilities[ability] > 9) {
+      adjustedAbilities[ability] -= 1;
+      adjustmentPointPool += 0.5;
+    }
+  };
+  const incrementBaseAbility = (ability: Ability) => () => {
+    if (
+      adjustedAbilities[ability] < rolledAbilities[ability] &&
+      adjustmentPointPool >= 0.5
+    ) {
+      adjustedAbilities[ability] += 1;
+      adjustmentPointPool -= 0.5;
+    }
+  };
+  const incrementPrimeAbility = (ability: Ability) => () => {
+    if (adjustmentPointPool >= 1) {
+      adjustedAbilities[ability] += 1;
+      adjustmentPointPool -= 1;
+    }
+  };
+  const decrementPrimeAbility = (ability: Ability) => () => {
+    if (
+      adjustedAbilities[ability] > 9 ||
+      adjustedAbilities[ability] > rolledAbilities[ability]
+    ) {
+      adjustedAbilities[ability] -= 1;
+      adjustmentPointPool += 1;
+    }
+  };
 </script>
 
-<div class="text-center text-gray-900">
+<div class="text-center text-dark-gray">
   <h1 class="text-5xl pt-8 pb-7" style="font-family: BungeeShade;">
     BX D&D Character Generator
   </h1>
@@ -107,11 +134,13 @@
       </div>
     </div>
   </div>
-  <h2 style="font-family: Economica-Bold;" class="pb-2 text-2xl">
-    Choose Available Class
+  <h2 style="font-family: ScalaSans-Regular;" class="pb-2 text-2xl font-bold">
+    {selectedCharacterClass !== null
+      ? "Character Class"
+      : "Choose Available Class"}
   </h2>
-  <div class="pr-16 pl-16 pb-8">
-    <table class="table-auto" style="font-family: ScalaSans-Regular">
+  <div class="pr-16 pl-16 pb-8 flex flex-row justify-center">
+    <table class="w-full table-auto" style="font-family: ScalaSans-Regular">
       <thead>
         <tr>
           <th class="p-4">Class</th>
@@ -120,12 +149,17 @@
           <th class="p-4">HD</th>
           <th class="p-4">Languages</th>
           <th class="p-4">Special Abilities</th>
+          <th class="p-4">EXP modifier</th>
         </tr>
       </thead>
-      {#each availableCharacterClasses as cc, idx}
+      {#each selectedCharacterClass === null ? availableCharacterClasses : [selectedCharacterClass] as cc, idx}
         <tr
-          style={`${idx % 2 === 0 ? "background: #dbe8d4;" : ""}`}
-          class="box-border cursor-pointer hover:bg-gray-900 hover:text-white"
+          class={`${idx % 2 === 0 ? "bg-mint" : ""} ${
+            selectedCharacterClass === null
+              ? "cursor-pointer hover:bg-dark-gray text-dark-gray hover:text-white"
+              : ""
+          }`}
+          on:click={onSelectCharacterClass(cc.name)}
         >
           <td class="p-4 font-bold" style="font-family: ScalaSans-Regular;"
             >{cc.name}</td
@@ -146,70 +180,79 @@
     </table>
   </div>
 
-  <h2>Alignment</h2>
-  <select
-    bind:value={selectedAlignment}
-    name="alignment"
-    id="alignment"
-    class={selectClasses}
-  >
-    <option class="py-1" value={null}>Select Alignment</option>
-    <option class="py-1" value={"Chaotic"}>{"Chaotic"}</option>
-    <option class="py-1" value={"Neutral"}>{"Neutral"}</option>
-    <option class="py-1" value={"Lawful"}>{"Lawful"}</option>
-  </select>
-
-  {#if selectedAlignment !== null && selectedCharacterClass !== null}
-    <div>Alignment: {selectedAlignment}</div>
-    <h3>Ability Class Adjustments</h3>
-    <div>adjustment point pool: {adjustmentPointPool}</div>
-    <button
-      on:click={() => {
-        rawAdjustmentPointPoolCounter = 0;
-        adjustmentPointPool = 0;
-        adjustedAbilities = { ...rolledAbilities };
-      }}>reset</button
-    >
-    {#each abilitiesList as abilityKey}
-      <div>
-        {#if abilityKey === "STR" || abilityKey === "INT" || abilityKey === "WIS" || (selectedCharacterClass?.primeRequisites || []).includes(abilityKey)}
-          <span
-            style={(selectedCharacterClass?.primeRequisites || []).includes(
-              abilityKey
-            )
-              ? "background: blue; color: white"
-              : ""}
-            >{abilityKey}:
-          </span><span>{adjustedAbilities[abilityKey]}</span>
-        {/if}
-        {#if abilityKey === "STR" || abilityKey === "INT" || abilityKey === "WIS"}
-          <button
-            class={buttonClasses}
-            disabled={adjustedAbilities[abilityKey] <= 9}
-            on:click={() => {
-              adjustedAbilities[abilityKey] = adjustedAbilities[abilityKey] - 1;
-              const rawAdjustmentAmount = (
-                selectedCharacterClass?.primeRequisites || []
-              ).includes(abilityKey)
-                ? 2
-                : 1;
-              rawAdjustmentPointPoolCounter =
-                rawAdjustmentPointPoolCounter + rawAdjustmentAmount;
-            }}>-</button
-          >
-        {/if}
-        {#if (selectedCharacterClass?.primeRequisites || []).includes(abilityKey)}
-          <button
-            class={buttonClasses}
-            disabled={adjustmentPointPool < 1}
-            on:click={() => {
-              adjustedAbilities[abilityKey] = adjustedAbilities[abilityKey] + 1;
-              rawAdjustmentPointPoolCounter = rawAdjustmentPointPoolCounter - 2;
-            }}>+</button
-          >
-        {/if}
+  {#if selectedCharacterClass !== null}
+    <h2 style="font-family: ScalaSans-Regular;" class="pb-2 text-2xl font-bold">
+      {selectedCharacterClass !== null && selectedAlignment === null
+        ? "Choose Alignment"
+        : "Alignment"}
+    </h2>
+    {#if selectedAlignment === null}
+      <select bind:value={selectedAlignment} name="alignment" id="alignment">
+        <option class="py-1" value={null}>Select Alignment</option>
+        <option class="py-1" value={"Chaotic"}>{"Chaotic"}</option>
+        <option class="py-1" value={"Neutral"}>{"Neutral"}</option>
+        <option class="py-1" value={"Lawful"}>{"Lawful"}</option>
+      </select>
+    {:else}
+      <div class="pb-6">
+        {selectedAlignment}
       </div>
-    {/each}
+    {/if}
+  {/if}
+  {#if selectedCharacterClass !== null && selectedAlignment !== null}
+    <h2 style="font-family: ScalaSans-Regular;" class="pb-2 text-2xl font-bold">
+      Adjust Prime Requisite Abilities
+    </h2>
+    <div class="w-full flex justify-center">
+      <div class="w-auto flex justify-between">
+        <div class="flex p-4">
+          {#each difference(adjustableAbilities, selectedCharacterClass.primeRequisites) as ba}
+            <div class="p-2 flex flex-col align-middle">
+              <div
+                class="select-none text-center bg-mint hover:bg-dark-gray hover:text-white rounded cursor-pointer text-2xl font-bold"
+                on:click={incrementBaseAbility(ba)}
+              >
+                ^
+              </div>
+              <div class="text-xl">{ba}</div>
+              <div class="text-xl">{adjustedAbilities[ba]}</div>
+              <div
+                class="select-none text-center bg-mint hover:bg-dark-gray hover:text-white rounded cursor-pointer text-2xl font-bold"
+                style="transform: rotate(180deg);"
+                on:click={decrementBaseAbility(ba)}
+              >
+                ^
+              </div>
+            </div>
+          {/each}
+        </div>
+        <div class="p-2 text-xl flex flex-col align-middle justify-center">
+          <div>Ability Points</div>
+          <div class="font-bold">{adjustmentPointPool}</div>
+        </div>
+        <div class="flex p-4">
+          {#each selectedCharacterClass.primeRequisites as pr}
+            <div class="p-2 flex flex-col align-middle">
+              <div
+                class="select-none text-center bg-mint hover:bg-dark-gray hover:text-white rounded cursor-pointer text-2xl font-bold"
+                on:click={incrementPrimeAbility(pr)}
+              >
+                ^
+              </div>
+              <div class="text-xl">{pr}</div>
+              <div class="text-xl">{adjustedAbilities[pr]}</div>
+              <div
+                class="select-none text-center bg-mint hover:bg-dark-gray hover:text-white rounded cursor-pointer text-2xl font-bold"
+                style="transform: rotate(180deg);"
+                on:click={decrementPrimeAbility(pr)}
+              >
+                ^
+              </div>
+            </div>
+          {/each}
+        </div>
+      </div>
+    </div>
   {/if}
 </div>
 
