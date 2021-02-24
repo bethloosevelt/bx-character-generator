@@ -35,14 +35,6 @@
     "1d6": number;
     "1d8": number;
   }
-  const d4 = roll("1d4")();
-  const firstD2 = roll("1d2")();
-  const secondD2 = roll("1d2")();
-  const rolledHitDice: RolledHitDice = {
-    "1d4": d4,
-    "1d6": d4 + firstD2,
-    "1d8": d4 + firstD2 + secondD2,
-  };
 
   const availableCharacterClasses = characterClasses.all.filter((cc) =>
     cc.abilityMinimums
@@ -65,17 +57,6 @@
   const buttonClasses =
     "focus:outline-none text-white text-sm py-2.5 px-5 rounded-md bg-green-500 hover:bg-green-600 hover:shadow-lg";
   const selectClasses = "w-full border bg-white rounded px-3 py-2 outline-none";
-
-  const classSelectTableData = {
-    headings: availableCharacterClasses.map((cc) => cc.name),
-    hp: availableCharacterClasses.map((cc) => rolledHitDice[cc.hitDice]),
-    armor: availableCharacterClasses.map((cc) => cc.armor),
-    weapons: availableCharacterClasses.map((cc) => cc.weapons),
-    languages: availableCharacterClasses.map((cc) => cc.languages.join(", ")),
-    specialAbilities: availableCharacterClasses.map(
-      (cc) => cc.specialAbilities.join(", ") || ""
-    ),
-  };
 </script>
 
 <div class="text-center">
@@ -122,49 +103,33 @@
       </div>
     </div>
   </div>
-  <h2 class="pb-2 text-2xl">Choose Available Class</h2>
-  <table class="table-fixed w-full">
-    <thead>
-      <tr>
-        <th class="w-1/16">Stat</th>
-        {#each classSelectTableData.headings as h}
-          <th class="w-1/8 p-2">{h}</th>
-        {/each}
-      </tr>
-    </thead>
-    <tbody>
-      <tr class="bg-green-100 p-2">
-        <td>Armor</td>
-        {#each classSelectTableData.armor as a}
-          <td>{a}</td>
-        {/each}
-      </tr>
-      <tr class="p-2">
-        <td>Weapons</td>
-        {#each classSelectTableData.weapons as w}
-          <td>{w}</td>
-        {/each}
-      </tr>
-      <tr class="bg-green-100 p-2">
-        <td>Health</td>
-        {#each classSelectTableData.hp as hp}
-          <td>{hp}</td>
-        {/each}
-      </tr>
-      <tr class="p-2">
-        <td>Languages</td>
-        {#each classSelectTableData.languages as l}
-          <td>{l}</td>
-        {/each}
-      </tr>
-      <tr class="bg-green-100 p-2">
-        <td>Special Abilities</td>
-        {#each classSelectTableData.specialAbilities as s}
-          <td>{s}</td>
-        {/each}
-      </tr>
-    </tbody>
-  </table>
+  <h2 style="font-family: FuturaCondensed-Bold;" class="pb-2 text-2xl">
+    Choose Available Class
+  </h2>
+  <div class="pr-16 pl-16 pb-8">
+    <table class="table-auto">
+      <thead>
+        <tr>
+          <th class="p-4">Class</th>
+          <th class="p-4">Armor</th>
+          <th class="p-4">Weapons</th>
+          <th class="p-4">HD</th>
+          <th class="p-4">Languages</th>
+          <th class="p-4">Special Abilities</th>
+        </tr>
+      </thead>
+      {#each availableCharacterClasses as cc, idx}
+        <tr style={`${idx % 2 === 0 ? "background: #d4e8cf;" : ""}`}>
+          <td class="p-4">{cc.name}</td>
+          <td class="p-4">{cc.armor}</td>
+          <td class="p-4">{cc.weapons}</td>
+          <td class="p-4">{cc.hitDice}</td>
+          <td class="p-4">{cc.languages.join(", ")}</td>
+          <td class="p-4">{cc.specialAbilities.join(", ")}</td>
+        </tr>
+      {/each}
+    </table>
+  </div>
 
   <h2>Alignment</h2>
   <select
