@@ -8,7 +8,8 @@
     getCHAModifier,
     getWISModifier,
     getCONModifier,
-  } from "./abilityModifiers";
+  } from "./abilityModifiersUtil";
+  console.log(getSTRModifier);
   const STR_MOD = getSTRModifier(abilityScores["STR"]);
   const INT_MOD = getINTModifier(abilityScores["INT"]);
   const DEX_MOD = getDEXModifier(abilityScores["DEX"]);
