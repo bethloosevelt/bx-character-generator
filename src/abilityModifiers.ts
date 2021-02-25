@@ -56,7 +56,71 @@ type ModifierTable<M extends AbilityModifiers> = ReadonlyArray<
   ModifierTableRow<M>
 >;
 
-export const DEX_MODIFIER_TABLE: ModifierTable<DexterityModifiers> = [];
+export const DEX_MODIFIER_TABLE: ModifierTable<DexterityModifiers> = [
+  {
+    lowerBound: 3,
+    upperBound: 3,
+    modifiers: {
+      armorClass: -3,
+      missile: -3,
+      initiative: -2,
+    },
+  },
+  {
+    lowerBound: 4,
+    upperBound: 5,
+    modifiers: {
+      armorClass: -2,
+      missile: -2,
+      initiative: -1,
+    },
+  },
+  {
+    lowerBound: 6,
+    upperBound: 8,
+    modifiers: {
+      armorClass: -1,
+      missile: -1,
+      initiative: -1,
+    },
+  },
+  {
+    lowerBound: 9,
+    upperBound: 12,
+    modifiers: {
+      armorClass: 0,
+      missile: 0,
+      initiative: 0,
+    },
+  },
+  {
+    lowerBound: 13,
+    upperBound: 15,
+    modifiers: {
+      armorClass: 1,
+      missile: 1,
+      initiative: 1,
+    },
+  },
+  {
+    lowerBound: 16,
+    upperBound: 17,
+    modifiers: {
+      armorClass: 2,
+      missile: 2,
+      initiative: 1,
+    },
+  },
+  {
+    lowerBound: 18,
+    upperBound: 18,
+    modifiers: {
+      armorClass: 3,
+      missile: 3,
+      initiative: 2,
+    },
+  },
+];
 
 export const INT_MODIFIER_TABLE: ModifierTable<IntelligenceModifiers> = [
   {
