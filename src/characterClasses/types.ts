@@ -46,4 +46,5 @@ export interface CharacterClass {
   weapons: string;
   armor: string;
   specialAbilities: Array<string>;
+  modifiers: Object<Ability, number>;
 }

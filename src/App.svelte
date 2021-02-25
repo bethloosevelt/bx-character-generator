@@ -56,18 +56,18 @@
   let adjustmentPointPool = 0;
 
   const decrementBaseAbility = (ability: Ability) => () => {
-    if (adjustedAbilities[ability] > 9) {
-      adjustedAbilities[ability] -= 1;
-      adjustmentPointPool += 0.5;
+    if (adjustedAbilities[ability] > 10) {
+      adjustedAbilities[ability] -= 2;
+      adjustmentPointPool += 1;
     }
   };
   const incrementBaseAbility = (ability: Ability) => () => {
     if (
-      adjustedAbilities[ability] < rolledAbilities[ability] &&
-      adjustmentPointPool >= 0.5
+      adjustedAbilities[ability] < rolledAbilities[ability] - 1 &&
+      adjustmentPointPool >= 1
     ) {
-      adjustedAbilities[ability] += 1;
-      adjustmentPointPool -= 0.5;
+      adjustedAbilities[ability] += 2;
+      adjustmentPointPool -= 1;
     }
   };
   const incrementPrimeAbility = (ability: Ability) => () => {
@@ -77,10 +77,7 @@
     }
   };
   const decrementPrimeAbility = (ability: Ability) => () => {
-    if (
-      adjustedAbilities[ability] > 9 ||
-      adjustedAbilities[ability] > rolledAbilities[ability]
-    ) {
+    if (adjustedAbilities[ability] > rolledAbilities[ability]) {
       adjustedAbilities[ability] -= 1;
       adjustmentPointPool += 1;
     }
