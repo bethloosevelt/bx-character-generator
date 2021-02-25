@@ -13,7 +13,38 @@ export interface IntelligenceModifiers {
   literacy: "Illiterate" | "Basic" | "Literate";
 }
 
-type AbilityModifiers = StrengthModifiers | IntelligenceModifiers;
+export interface DexterityModifiers {
+  armorClass: -3 | -2 | -1 | 0 | 1 | 2 | 3;
+  missile: -3 | -2 | -1 | 0 | 1 | 2 | 3;
+  initiative: -2 | -1 | 0 | 1 | 2;
+}
+
+export interface CharismaModifiers {
+  npcReactions: -2 | -1 | 0 | 1 | 2;
+  maxRetainers: 1 | 2 | 3 | 4 | 5 | 6 | 7;
+  loyalty: 4 | 5 | 6 | 7 | 8 | 9 | 10;
+}
+
+export interface WisdomModifiers {
+  magicSaves: -3 | -2 | -1 | 0 | 1 | 2 | 3;
+}
+
+export interface ConstitutionModifiers {
+  hp: -3 | -2 | -1 | 0 | 1 | 2 | 3;
+}
+
+export interface PrimeRequisiteModifiers {
+  hp: -0.2 | -0.1 | 0 | 0.05 | 0.1;
+}
+
+type AbilityModifiers =
+  | StrengthModifiers
+  | IntelligenceModifiers
+  | DexterityModifiers
+  | CharismaModifiers
+  | WisdomModifiers
+  | ConstitutionModifiers
+  | PrimeRequisiteModifiers;
 
 interface ModifierTableRow<M extends AbilityModifiers> {
   lowerBound: number;
@@ -25,7 +56,68 @@ type ModifierTable<M extends AbilityModifiers> = ReadonlyArray<
   ModifierTableRow<M>
 >;
 
-const STR_MODIFIER_TABLE: ModifierTable<StrengthModifiers> = [
+export const DEX_MODIFIER_TABLE: ModifierTable<DexterityModifiers> = [];
+
+export const INT_MODIFIER_TABLE: ModifierTable<IntelligenceModifiers> = [
+  {
+    lowerBound: 3,
+    upperBound: 3,
+    modifiers: {
+      spokenLanguages: "Native (broken speech)",
+      literacy: "Illiterate",
+    },
+  },
+  {
+    lowerBound: 4,
+    upperBound: 5,
+    modifiers: {
+      spokenLanguages: "Native",
+      literacy: "Illiterate",
+    },
+  },
+  {
+    lowerBound: 6,
+    upperBound: 8,
+    modifiers: {
+      spokenLanguages: "Native",
+      literacy: "Basic",
+    },
+  },
+  {
+    lowerBound: 9,
+    upperBound: 12,
+    modifiers: {
+      spokenLanguages: "Native",
+      literacy: "Literate",
+    },
+  },
+  {
+    lowerBound: 13,
+    upperBound: 15,
+    modifiers: {
+      spokenLanguages: "Native +1 additional",
+      literacy: "Literate",
+    },
+  },
+  {
+    lowerBound: 16,
+    upperBound: 17,
+    modifiers: {
+      spokenLanguages: "Native +2 additional",
+      literacy: "Literate",
+    },
+  },
+  {
+    lowerBound: 18,
+    upperBound: 18,
+    modifiers: {
+      spokenLanguages: "Native +3 additional",
+      literacy: "Literate",
+    },
+  },
+];
+
+export const STR_MODIFIER_TABLE: ModifierTable<StrengthModifiers> = [
   {
     lowerBound: 3,
     upperBound: 3,
