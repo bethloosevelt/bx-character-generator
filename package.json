@@ -2,7 +2,6 @@
   "name": "bx-charcter-generator",
   "version": "1.0.0",
   "description": "extensible character generator for BX d&d",
-  "main": "index.js",
   "devDependencies": {
     "@parcel/optimizer-cssnano": "^2.0.0-nightly.609",
     "@parcel/optimizer-htmlnano": "^2.0.0-nightly.609",
