@@ -1,0 +1,14 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+var _types = require("./types");
+const halfling = {
+  name: "Thief",
+  primeRequisites: ["DEX"],
+  primeRequisiteModifier: _types.defaultPrimeRequisiteModifierTableForAbility("DEX"),
+  hitDice: "1d4",
+  languages: ["Alignment", "Common"],
+  armor: "Leather, no shields",
+  weapons: "Any",
+  specialAbilities: ["Backstab", "Climb Sheer Surfaces", "Find or Remove Treasure Traps", "Hear Noise", "Move Silently", "Open Locks", "Pick Pockets", "Read Languages (level 4+)", "Scroll Use (level 10+)"]
+};
+exports.default = halfling;

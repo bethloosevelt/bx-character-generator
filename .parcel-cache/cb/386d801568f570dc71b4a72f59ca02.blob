@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head><link rel="stylesheet" href="/index.HASH_REF_ba6172d9ee52b2eb4421d6cf1001750c.css">
+    <meta charset="utf8">
+    <meta name="viewport" content="width=device-width">
+
+    <title>BX Char</title>
+    <style>@font-face {
+  font-family: 'BungeeShade';
+
+  src: url('BungeeShade-Regular.HASH_REF_c40d3c7d7cb5c19ab6ed838fb685e3d2.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Economica-Regular';
+
+  src: url('Economica-Regular.HASH_REF_4ec393ce94c2ddb9986c12047335b3c6.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'Economica-Bold';
+
+  src: url('Economica-Bold.HASH_REF_a73067203c2fbb04edac27c1a6b32cb4.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: 'ScalaSans-Regular';
+
+  src: url('ScalaSans-RegularLF.HASH_REF_acd2385210c0039882c6541e2eb08c65.otf') format('opentype');
+}
+</style>
+  </head>
+
+  <body>
+    <div id="app"></div>
+    <script src="/index.HASH_REF_c75227167347e57df55b258c72166a09.js"></script>
+  </body>
+</html>

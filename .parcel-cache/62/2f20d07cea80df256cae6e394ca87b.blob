@@ -1,0 +1,41 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+_parcelHelpers.export(exports, "all", function () {
+  return all;
+});
+_parcelHelpers.export(exports, "cleric", function () {
+  return _clericDefault.default;
+});
+_parcelHelpers.export(exports, "dwarf", function () {
+  return _dwarfDefault.default;
+});
+_parcelHelpers.export(exports, "elf", function () {
+  return _elfDefault.default;
+});
+_parcelHelpers.export(exports, "fighter", function () {
+  return _fighterDefault.default;
+});
+_parcelHelpers.export(exports, "halfling", function () {
+  return _halflingDefault.default;
+});
+_parcelHelpers.export(exports, "magicUser", function () {
+  return _magicUserDefault.default;
+});
+_parcelHelpers.export(exports, "thief", function () {
+  return _thiefDefault.default;
+});
+var _cleric = require("./cleric");
+var _clericDefault = _parcelHelpers.interopDefault(_cleric);
+var _dwarf = require("./dwarf");
+var _dwarfDefault = _parcelHelpers.interopDefault(_dwarf);
+var _elf = require("./elf");
+var _elfDefault = _parcelHelpers.interopDefault(_elf);
+var _fighter = require("./fighter");
+var _fighterDefault = _parcelHelpers.interopDefault(_fighter);
+var _halfling = require("./halfling");
+var _halflingDefault = _parcelHelpers.interopDefault(_halfling);
+var _magicUser = require("./magicUser");
+var _magicUserDefault = _parcelHelpers.interopDefault(_magicUser);
+var _thief = require("./thief");
+var _thiefDefault = _parcelHelpers.interopDefault(_thief);
+const all = [_clericDefault.default, _dwarfDefault.default, _elfDefault.default, _fighterDefault.default, _halflingDefault.default, _magicUserDefault.default, _thiefDefault.default];

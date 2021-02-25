@@ -1,0 +1,7 @@
+var _AppSvelte = require("./App.svelte");
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+var _AppSvelteDefault = _parcelHelpers.interopDefault(_AppSvelte);
+new _AppSvelteDefault.default({
+  target: document.getElementById("app"),
+  props: {}
+});

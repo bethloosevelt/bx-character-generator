@@ -1,0 +1,18 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+var _types = require("./types");
+const dwarf = {
+  name: "Dwarf",
+  primeRequisites: ["STR"],
+  primeRequisiteModifier: _types.defaultPrimeRequisiteModifierTableForAbility("STR"),
+  hitDice: "1d8",
+  languages: ["Alignment", "Common", "Dwarvish", "Gnomish", "Goblin", "Kobold"],
+  abilityMinimums: [{
+    ability: "CON",
+    minimum: 9
+  }],
+  armor: "Any, including shields",
+  weapons: "Small or normal sized",
+  specialAbilities: ["Detect Construction Tricks", "Detect Room Traps", "Infravision", "Listening at Doors", "Establish Underground Stronghold (level 9+)"]
+};
+exports.default = dwarf;

@@ -1,0 +1,16 @@
+@font-face {
+        font-family: 'BungeeShade';
+        src: url('./fonts/BungeeShade-Regular.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'Economica-Regular';
+        src: url('./fonts/Economica-Regular.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'Economica-Bold';
+        src: url('./fonts/Economica-Bold.ttf') format('truetype');
+      }
+      @font-face {
+        font-family: 'ScalaSans-Regular';
+        src: url('./fonts/ScalaSans-RegularLF.otf') format('opentype');
+      }

@@ -1,0 +1,14 @@
+var _parcelHelpers = require("@parcel/transformer-js/lib/esmodule-helpers.js");
+_parcelHelpers.defineInteropFlag(exports);
+var _types = require("./types");
+const fighter = {
+  name: "Fighter",
+  primeRequisites: ["STR"],
+  primeRequisiteModifier: _types.defaultPrimeRequisiteModifierTableForAbility("STR"),
+  hitDice: "1d8",
+  languages: ["Alignment", "Common"],
+  armor: "Any, including shields",
+  weapons: "Any",
+  specialAbilities: ["Stronghold", "Become Baron/Baroness (level 9+)"]
+};
+exports.default = fighter;
