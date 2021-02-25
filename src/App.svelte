@@ -88,7 +88,7 @@
 
 <div class="text-center text-dark-gray">
   <h1 class="text-5xl pt-8 pb-7" style="font-family: BungeeShade;">
-    BX D&D Character Generator
+    BX D&D Character Creator
   </h1>
   <div
     class="pt-8 pb-16 w-full flex flex-row justify-center"
