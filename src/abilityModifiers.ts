@@ -34,7 +34,7 @@ export interface ConstitutionModifiers {
 }
 
 export interface PrimeRequisiteModifiers {
-  hp: -0.2 | -0.1 | 0 | 0.05 | 0.1;
+  xp: -0.2 | -0.1 | 0 | 0.05 | 0.1;
 }
 
 type AbilityModifiers =
@@ -55,6 +55,214 @@ interface ModifierTableRow<M extends AbilityModifiers> {
 type ModifierTable<M extends AbilityModifiers> = ReadonlyArray<
   ModifierTableRow<M>
 >;
+
+export const EXP_MODIFIER_TABLE: ModifierTable<PrimeRequisiteModifiers> = [
+  {
+    lowerBound: 3,
+    upperBound: 5,
+    modifiers: {
+      xp: -0.2,
+    },
+  },
+  {
+    lowerBound: 6,
+    upperBound: 8,
+    modifiers: {
+      xp: -0.1,
+    },
+  },
+  {
+    lowerBound: 9,
+    upperBound: 12,
+    modifiers: {
+      xp: 0,
+    },
+  },
+  {
+    lowerBound: 13,
+    upperBound: 15,
+    modifiers: {
+      xp: 0.05,
+    },
+  },
+  {
+    lowerBound: 16,
+    upperBound: 18,
+    modifiers: {
+      xp: 0.1,
+    },
+  },
+];
+
+export const CON_MODIFIER_TABLE: ModifierTable<ConstitutionModifiers> = [
+  {
+    lowerBound: 3,
+    upperBound: 3,
+    modifiers: {
+      hp: -3,
+    },
+  },
+  {
+    lowerBound: 4,
+    upperBound: 5,
+    modifiers: {
+      hp: -2,
+    },
+  },
+  {
+    lowerBound: 6,
+    upperBound: 8,
+    modifiers: {
+      hp: -1,
+    },
+  },
+  {
+    lowerBound: 9,
+    upperBound: 12,
+    modifiers: {
+      hp: 0,
+    },
+  },
+  {
+    lowerBound: 13,
+    upperBound: 15,
+    modifiers: {
+      hp: 1,
+    },
+  },
+  {
+    lowerBound: 16,
+    upperBound: 17,
+    modifiers: {
+      hp: 2,
+    },
+  },
+  {
+    lowerBound: 18,
+    upperBound: 18,
+    modifiers: {
+      hp: 3,
+    },
+  },
+];
+
+export const WIS_MODIFIER_TABLE: ModifierTable<WisdomModifiers> = [
+  {
+    lowerBound: 3,
+    upperBound: 3,
+    modifiers: {
+      magicSaves: -3,
+    },
+  },
+  {
+    lowerBound: 4,
+    upperBound: 5,
+    modifiers: {
+      magicSaves: -2,
+    },
+  },
+  {
+    lowerBound: 6,
+    upperBound: 8,
+    modifiers: {
+      magicSaves: -1,
+    },
+  },
+  {
+    lowerBound: 9,
+    upperBound: 12,
+    modifiers: {
+      magicSaves: 0,
+    },
+  },
+  {
+    lowerBound: 13,
+    upperBound: 15,
+    modifiers: {
+      magicSaves: 1,
+    },
+  },
+  {
+    lowerBound: 16,
+    upperBound: 17,
+    modifiers: {
+      magicSaves: 2,
+    },
+  },
+  {
+    lowerBound: 18,
+    upperBound: 18,
+    modifiers: {
+      magicSaves: 3,
+    },
+  },
+];
+
+export const CHA_MODIFIER_TABLE: ModifierTable<CharismaModifiers> = [
+  {
+    lowerBound: 3,
+    upperBound: 3,
+    modifiers: {
+      npcReactions: -2,
+      maxRetainers: 1,
+      loyalty: 4,
+    },
+  },
+  {
+    lowerBound: 4,
+    upperBound: 5,
+    modifiers: {
+      npcReactions: -1,
+      maxRetainers: 2,
+      loyalty: 5,
+    },
+  },
+  {
+    lowerBound: 6,
+    upperBound: 8,
+    modifiers: {
+      npcReactions: -1,
+      maxRetainers: 3,
+      loyalty: 6,
+    },
+  },
+  {
+    lowerBound: 9,
+    upperBound: 12,
+    modifiers: {
+      npcReactions: 0,
+      maxRetainers: 3,
+      loyalty: 7,
+    },
+  },
+  {
+    lowerBound: 13,
+    upperBound: 15,
+    modifiers: {
+      npcReactions: 1,
+      maxRetainers: 5,
+      loyalty: 8,
+    },
+  },
+  {
+    lowerBound: 16,
+    upperBound: 17,
+    modifiers: {
+      npcReactions: 1,
+      maxRetainers: 6,
+      loyalty: 9,
+    },
+  },
+  {
+    lowerBound: 18,
+    upperBound: 18,
+    modifiers: {
+      npcReactions: 2,
+      maxRetainers: 7,
+      loyalty: 10,
+    },
+  },
+];
 
 export const DEX_MODIFIER_TABLE: ModifierTable<DexterityModifiers> = [
   {
