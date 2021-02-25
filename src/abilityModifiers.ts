@@ -447,3 +447,17 @@ export const STR_MODIFIER_TABLE: ModifierTable<StrengthModifiers> = [
     },
   },
 ];
+
+const getModifier = <T extends AbilityModifiers>(table: ModifierTable<T>) => (
+  abilityScore: number
+): ModifierTableRow<T> | undefined =>
+  table.find(
+    (row) => row.lowerBound <= abilityScore && row.upperBound >= abilityScore
+  );
+
+export const getSTRModifier = getModifier(STR_MODIFIER_TABLE);
+export const getINTModifier = getModifier(INT_MODIFIER_TABLE);
+export const getDEXModifier = getModifier(DEX_MODIFIER_TABLE);
+export const getCHAModifier = getModifier(CHA_MODIFIER_TABLE);
+export const getWISModifier = getModifier(WIS_MODIFIER_TABLE);
+export const getCONModifier = getModifier(CON_MODIFIER_TABLE);

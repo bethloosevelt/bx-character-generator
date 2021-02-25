@@ -1,6 +1,8 @@
 <script lang="ts">
   import Roll from "roll";
-  import { adjust, difference, reduce } from "ramda";
+  import { difference } from "ramda";
+
+  import AbilityModifiers from "./AbilityModifiers.svelte";
 
   import * as characterClasses from "./characterClasses";
   import type {
@@ -250,6 +252,8 @@
         </div>
       </div>
     </div>
+    <div />
+    <AbilityModifiers abilityScores={adjustedAbilities} />
   {/if}
 </div>
 
