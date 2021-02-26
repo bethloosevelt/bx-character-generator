@@ -46,5 +46,17 @@ export interface CharacterClass {
   weapons: string;
   armor: string;
   specialAbilities: Array<string>;
-  modifiers: Object<Ability, number>;
+  savingThrows: {
+    d: number;
+    w: number;
+    p: number;
+    b: number;
+    s: number;
+  };
+  exploration?: {
+    ld?: string;
+    sd: string;
+    ft?: string;
+  };
+  expToNextLevel: number;
 }

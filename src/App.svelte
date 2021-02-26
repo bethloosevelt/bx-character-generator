@@ -2,7 +2,18 @@
   import Roll from "roll";
   import { difference } from "ramda";
 
-  import AbilityModifiers from "./AbilityModifiers.svelte";
+  import SavingThrows from "./SavingThrows.svelte";
+  import Combat from "./Combat.svelte";
+  import Encounters from "./Encounters.svelte";
+  import Exploration from "./Exploration.svelte";
+  import {
+    getSTRModifier,
+    getINTModifier,
+    getWISModifier,
+    getDEXModifier,
+    getCONModifier,
+    getCHAModifier,
+  } from "./abilityModifiersUtil";
 
   import * as characterClasses from "./characterClasses";
   import type {
@@ -19,14 +30,6 @@
   let selectedCharacterClass: CharacterClass | null = null;
   let selectedAlignment: Alignment | null = null;
 
-  let abilitiesList: Array<Ability> = [
-    "STR",
-    "INT",
-    "WIS",
-    "DEX",
-    "CON",
-    "CHA",
-  ];
   type RolledAbilities = { [key in Ability]: number };
   const rolledAbilities: RolledAbilities = {
     STR: roll3D6(),
@@ -83,6 +86,14 @@
       adjustedAbilities[ability] -= 1;
       adjustmentPointPool += 1;
     }
+  };
+  $: abilityModifiers = {
+    STR: getSTRModifier(adjustedAbilities["STR"]),
+    INT: getINTModifier(adjustedAbilities["INT"]),
+    WIS: getWISModifier(adjustedAbilities["WIS"]),
+    DEX: getDEXModifier(adjustedAbilities["DEX"]),
+    CON: getCONModifier(adjustedAbilities["CON"]),
+    CHA: getCHAModifier(adjustedAbilities["CHA"]),
   };
 </script>
 
@@ -253,7 +264,32 @@
       </div>
     </div>
     <div />
-    <AbilityModifiers abilityScores={adjustedAbilities} />
+    <div class="w-full flex flex-row justify-center">
+      <div class="p-8">
+        <div>Combat</div>
+        <Combat {abilityModifiers} />
+      </div>
+      <div class="p-8">
+        <div>Saving Throws</div>
+        <SavingThrows
+          {abilityModifiers}
+          characterClass={selectedCharacterClass}
+        />
+      </div>
+    </div>
+    <div class="w-full flex flex-row justify-center">
+      <div class="p-8">
+        <div>Encounters</div>
+        <Encounters {abilityModifiers} />
+      </div>
+      <div class="p-8">
+        <div>Exploration</div>
+        <Exploration
+          {abilityModifiers}
+          characterClass={selectedCharacterClass}
+        />
+      </div>
+    </div>
   {/if}
 </div>
 

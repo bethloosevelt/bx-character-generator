@@ -33,6 +33,17 @@ const elf: CharacterClass = {
     "Infravision",
     "Listening at Doors",
   ],
+  savingThrows: {
+    d: 12,
+    w: 13,
+    p: 13,
+    b: 15,
+    s: 15,
+  },
+  exploration: {
+    sd: "2-in-6",
+  },
+  expToNextLevel: 4000,
 };
 
 export default elf;

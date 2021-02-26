@@ -10,6 +10,14 @@ const magicUser: CharacterClass = {
   armor: "None",
   weapons: "Dagger",
   specialAbilities: ["Arcane Magic", "Establish Stronghold (level 11+)"],
+  savingThrows: {
+    d: 13,
+    w: 14,
+    p: 13,
+    b: 16,
+    s: 15,
+  },
+  expToNextLevel: 2500,
 };
 
 export default magicUser;

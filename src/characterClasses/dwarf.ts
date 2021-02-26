@@ -17,6 +17,14 @@ const dwarf: CharacterClass = {
     "Listening at Doors",
     "Establish Underground Stronghold (level 9+)",
   ],
+  savingThrows: {
+    d: 8,
+    w: 9,
+    p: 10,
+    b: 13,
+    s: 12,
+  },
+  expToNextLevel: 2200,
 };
 
 export default dwarf;

@@ -10,6 +10,14 @@ const fighter: CharacterClass = {
   armor: "Any, including shields",
   weapons: "Any",
   specialAbilities: ["Stronghold", "Become Baron/Baroness (level 9+)"],
+  savingThrows: {
+    d: 12,
+    w: 13,
+    p: 14,
+    b: 15,
+    s: 16,
+  },
+  expToNextLevel: 2000,
 };
 
 export default fighter;

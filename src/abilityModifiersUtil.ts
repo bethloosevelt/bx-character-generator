@@ -37,7 +37,7 @@ export interface PrimeRequisiteModifiers {
   xp: -0.2 | -0.1 | 0 | 0.05 | 0.1;
 }
 
-type AbilityModifiers =
+export type AbilityModifiers =
   | StrengthModifiers
   | IntelligenceModifiers
   | DexterityModifiers
@@ -46,7 +46,7 @@ type AbilityModifiers =
   | ConstitutionModifiers
   | PrimeRequisiteModifiers;
 
-interface ModifierTableRow<M extends AbilityModifiers> {
+export interface ModifierTableRow<M extends AbilityModifiers> {
   lowerBound: number;
   upperBound: number;
   modifiers: M;
@@ -461,3 +461,12 @@ export const getDEXModifier = getModifier(DEX_MODIFIER_TABLE);
 export const getCHAModifier = getModifier(CHA_MODIFIER_TABLE);
 export const getWISModifier = getModifier(WIS_MODIFIER_TABLE);
 export const getCONModifier = getModifier(CON_MODIFIER_TABLE);
+
+export interface ResolvedAbilityModifiers {
+  STR: ModifierTableRow<StrengthModifiers> | undefined;
+  INT: ModifierTableRow<IntelligenceModifiers> | undefined;
+  WIS: ModifierTableRow<WisdomModifiers> | undefined;
+  DEX: ModifierTableRow<DexterityModifiers> | undefined;
+  CON: ModifierTableRow<ConstitutionModifiers> | undefined;
+  CHA: ModifierTableRow<CharismaModifiers> | undefined;
+}

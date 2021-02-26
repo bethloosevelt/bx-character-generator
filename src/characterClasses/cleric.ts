@@ -14,6 +14,14 @@ const cleric: CharacterClass = {
     "Turning the Undead",
     "Spell Casting (level 2+)",
   ],
+  savingThrows: {
+    d: 11,
+    w: 12,
+    p: 14,
+    b: 16,
+    s: 15,
+  },
+  expToNextLevel: 1500,
 };
 
 export default cleric;

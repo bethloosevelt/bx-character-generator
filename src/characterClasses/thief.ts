@@ -19,7 +19,16 @@ const halfling: CharacterClass = {
     "Pick Pockets",
     "Read Languages (level 4+)",
     "Scroll Use (level 10+)",
+    "Establish thief den (level 9+)",
   ],
+  savingThrows: {
+    d: 13,
+    w: 14,
+    p: 13,
+    b: 16,
+    s: 15,
+  },
+  expToNextLevel: 1200,
 };
 
 export default halfling;

@@ -37,6 +37,14 @@ const halfling: CharacterClass = {
     "Missle Attack Bonus",
     "Stronghold",
   ],
+  savingThrows: {
+    d: 8,
+    w: 9,
+    p: 10,
+    b: 13,
+    s: 12,
+  },
+  expToNextLevel: 2000,
 };
 
 export default halfling;
