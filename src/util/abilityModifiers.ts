@@ -1,3 +1,5 @@
+import type { Ability } from "./characterClasses/types";
+
 export interface StrengthModifiers {
   melee: -3 | -2 | -1 | 0 | 1 | 2 | 3;
   openDoors: "1-in-6" | "2-in-6" | "3-in-6" | "4-in-6" | "5-in-6";
@@ -462,6 +464,7 @@ export const getCHAModifier = getModifier(CHA_MODIFIER_TABLE);
 export const getWISModifier = getModifier(WIS_MODIFIER_TABLE);
 export const getCONModifier = getModifier(CON_MODIFIER_TABLE);
 
+export type RolledAbilities = { [key in Ability]: number };
 export interface ResolvedAbilityModifiers {
   STR: ModifierTableRow<StrengthModifiers> | undefined;
   INT: ModifierTableRow<IntelligenceModifiers> | undefined;

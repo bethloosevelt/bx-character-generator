@@ -71,14 +71,7 @@ export default {
     }),
     commonjs(),
     copy({
-      targets: [
-        { src: "src/index.html", dest: "public/build" },
-        { src: "src/fonts/BungeeShade-Regular.ttf", dest: "public/build" },
-        { src: "src/fonts/Economica-Bold.ttf", dest: "public/build" },
-        { src: "src/fonts/Economica-Regular.ttf", dest: "public/build" },
-        { src: "src/fonts/ScalaSans-RegularLF.otf", dest: "public/build" },
-        { src: "src/favicon.ico", dest: "public/build" },
-      ],
+      targets: [{ src: "src/assets/*", dest: "public/build" }],
     }),
 
     // In dev mode, call `npm run start` once
