@@ -1,6 +1,8 @@
 <script lang="ts">
   import Roll from "roll";
   import { difference } from "ramda";
+  import ChevronUp24 from "carbon-icons-svelte/lib/ChevronUp24";
+  import ChevronDown24 from "carbon-icons-svelte/lib/ChevronDown24";
 
   import SavingThrows from "./SavingThrows.svelte";
   import Combat from "./Combat.svelte";
@@ -215,23 +217,23 @@
     </h2>
     <div class="w-full flex justify-center">
       <div class="w-auto flex justify-between">
-        <div class="flex p-4">
+        <div class="w-48 justify-end flex p-4">
           {#each difference(adjustableAbilities, selectedCharacterClass.primeRequisites) as ba}
             <div class="p-2 flex flex-col align-middle">
               <div
-                class="select-none text-center bg-mint hover:bg-dark-gray hover:text-white rounded cursor-pointer text-2xl font-bold"
+                class="w-10 h-10 select-none flex justify-center align-middle bg-mint hover:bg-dark-gray hover:text-white rounded cursor-pointer text-2xl font-bold"
                 on:click={incrementBaseAbility(ba)}
               >
-                ^
+                <ChevronUp24 />
               </div>
               <div class="text-xl">{ba}</div>
               <div class="text-xl">{adjustedAbilities[ba]}</div>
               <div
-                class="select-none text-center bg-mint hover:bg-dark-gray hover:text-white rounded cursor-pointer text-2xl font-bold"
+                class="w-10 h-10 select-none flex justify-center align-middle bg-mint hover:bg-dark-gray hover:text-white rounded cursor-pointer text-2xl font-bold"
                 style="transform: rotate(180deg);"
                 on:click={decrementBaseAbility(ba)}
               >
-                ^
+                <ChevronDown24 />
               </div>
             </div>
           {/each}
@@ -240,23 +242,23 @@
           <div>Ability Points</div>
           <div class="font-bold">{adjustmentPointPool}</div>
         </div>
-        <div class="flex p-4">
+        <div class="w-48 flex justify-start p-4">
           {#each selectedCharacterClass.primeRequisites as pr}
             <div class="p-2 flex flex-col align-middle">
               <div
-                class="select-none text-center bg-mint hover:bg-dark-gray hover:text-white rounded cursor-pointer text-2xl font-bold"
+                class="w-10 h-10 select-none flex justify-center align-middle bg-mint hover:bg-dark-gray hover:text-white rounded cursor-pointer text-2xl font-bold"
                 on:click={incrementPrimeAbility(pr)}
               >
-                ^
+                <ChevronUp24 />
               </div>
               <div class="text-xl">{pr}</div>
               <div class="text-xl">{adjustedAbilities[pr]}</div>
               <div
-                class="select-none text-center bg-mint hover:bg-dark-gray hover:text-white rounded cursor-pointer text-2xl font-bold"
+                class="w-10 h-10 select-none flex justify-center align-middle bg-mint hover:bg-dark-gray hover:text-white rounded cursor-pointer text-2xl font-bold"
                 style="transform: rotate(180deg);"
                 on:click={decrementPrimeAbility(pr)}
               >
-                ^
+                <ChevronDown24 />
               </div>
             </div>
           {/each}
@@ -294,7 +296,7 @@
 </div>
 
 <style global lang="postcss">
-  /* only apply purgecss on utilities, per Tailwind docs */
+  /* only apply purgecss on utilities, per Tailwind docs
   /* purgecss start ignore */
   @tailwind base;
   @tailwind components;

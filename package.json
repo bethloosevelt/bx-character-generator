@@ -3,30 +3,31 @@
   "version": "1.0.0",
   "description": "extensible character generator for BX d&d",
   "devDependencies": {
-    "@parcel/optimizer-cssnano": "^2.0.0-nightly.609",
-    "@parcel/optimizer-htmlnano": "^2.0.0-nightly.609",
-    "@parcel/packager-css": "^2.0.0-nightly.609",
-    "@parcel/packager-html": "^2.0.0-nightly.609",
-    "@parcel/transformer-css": "^2.0.0-nightly.609",
-    "@parcel/transformer-html": "^2.0.0-nightly.609",
-    "@parcel/transformer-postcss": "^2.0.0-nightly.609",
-    "@parcel/transformer-posthtml": "^2.0.0-nightly.609",
-    "@tailwindcss/postcss7-compat": "^2.0.3",
+    "@rollup/plugin-commonjs": "^17.1.0",
+    "@rollup/plugin-node-resolve": "^11.2.0",
+    "@rollup/plugin-typescript": "^8.2.0",
     "@tsconfig/svelte": "^1.0.0",
     "@types/ramda": "^0.27.38",
     "@types/roll": "^1.2.0",
     "autoprefixer": "^10.2.4",
-    "parcel": "^2.0.0-beta.1",
-    "parcel-transformer-svelte": "^1.1.1",
     "postcss": "^8.2.6",
+    "postcss-load-config": "^3.0.1",
+    "rollup": "^2.40.0",
+    "rollup-plugin-css-only": "^3.1.0",
+    "rollup-plugin-livereload": "^2.0.0",
+    "rollup-plugin-svelte": "^7.1.0",
+    "rollup-plugin-terser": "^7.0.2",
+    "rollup-plugin-typescript": "^1.0.1",
+    "sirv-cli": "^1.0.11",
     "svelte": "^3.32.3",
     "svelte-preprocess": "^4.6.9",
     "tailwindcss": "^2.0.3",
-    "typescript": "^4.1.5"
+    "tslib": "^2.1.0"
   },
   "scripts": {
-    "dev": "NODE_ENV=development parcel src/index.html",
-    "build": "parcel build src/index.html"
+    "dev": "NODE_ENV=development rollup -c -w",
+    "build": "rollup -c",
+    "start": "sirv public/build"
   },
   "keywords": [
     "bx",
@@ -36,7 +37,9 @@
   "author": "Beth Loosevelt Liam Dyer",
   "license": "ISC",
   "dependencies": {
+    "carbon-icons-svelte": "^10.23.0",
     "ramda": "^0.27.1",
-    "roll": "^1.3.1"
+    "roll": "^1.3.1",
+    "rollup-plugin-copy": "^3.4.0"
   }
 }
