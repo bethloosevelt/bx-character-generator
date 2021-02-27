@@ -35,6 +35,9 @@
     function is_empty(obj) {
         return Object.keys(obj).length === 0;
     }
+    function null_to_empty(value) {
+        return value == null ? '' : value;
+    }
 
     const is_client = typeof window !== 'undefined';
     let now = is_client
@@ -973,7 +976,7 @@
     			add_location(path, file$2, 14, 2, 303);
     			attr_dev(svg, "style", /*style*/ ctx[0]);
     			attr_dev(svg, "xmlns", "http://www.w3.org/2000/svg");
-    			attr_dev(svg, "viewBox", "0 0 100 125");
+    			attr_dev(svg, "viewBox", "0 0 100 100");
     			attr_dev(svg, "fill", "currentColor");
     			attr_dev(svg, "width", "48");
     			attr_dev(svg, "height", "48");
@@ -1081,23 +1084,24 @@
 
     function get_each_context(ctx, list, i) {
     	const child_ctx = ctx.slice();
-    	child_ctx[4] = list[i];
-    	child_ctx[6] = i;
+    	child_ctx[5] = list[i];
+    	child_ctx[7] = i;
     	return child_ctx;
     }
 
-    // (24:6) {#each abilities as ability, idx}
+    // (38:6) {#each abilities as ability, idx}
     function create_each_block(ctx) {
     	let div3;
     	let div0;
     	let d20;
+    	let div0_class_value;
     	let t0;
     	let div1;
-    	let t1_value = /*ability*/ ctx[4] + "";
+    	let t1_value = /*ability*/ ctx[5] + "";
     	let t1;
     	let t2;
     	let div2;
-    	let t3_value = (/*rolledAbilities*/ ctx[0]?.[/*ability*/ ctx[4]] || "_") + "";
+    	let t3_value = (/*rolledAbilities*/ ctx[0]?.[/*ability*/ ctx[5]] || "_") + "";
     	let t3;
     	let t4;
     	let current;
@@ -1117,13 +1121,17 @@
     			div2 = element("div");
     			t3 = text(t3_value);
     			t4 = space();
-    			attr_dev(div0, "class", "flex justify-center items-center h-14 w-16 cursor-pointer");
-    			add_location(div0, file$1, 28, 10, 971);
-    			add_location(div1, file$1, 34, 10, 1156);
-    			add_location(div2, file$1, 35, 10, 1187);
-    			attr_dev(div3, "class", "slide-up flex flex-col items-center svelte-q4t9oy");
-    			attr_dev(div3, "style", /*getAnimationDelayStyle*/ ctx[3](/*idx*/ ctx[6]));
-    			add_location(div3, file$1, 24, 8, 846);
+
+    			attr_dev(div0, "class", div0_class_value = "" + (null_to_empty(`${/*diceRollingInProgress*/ ctx[1][/*ability*/ ctx[5]]
+			? "rolling"
+			: ""} flex justify-center items-center h-14 w-16 cursor-pointer`) + " svelte-1enccg3"));
+
+    			add_location(div0, file$1, 42, 10, 1387);
+    			add_location(div1, file$1, 50, 10, 1650);
+    			add_location(div2, file$1, 51, 10, 1681);
+    			attr_dev(div3, "class", "slide-up flex flex-col items-center svelte-1enccg3");
+    			attr_dev(div3, "style", /*getAnimationDelayStyle*/ ctx[4](/*idx*/ ctx[7]));
+    			add_location(div3, file$1, 38, 8, 1262);
     		},
     		m: function mount(target, anchor) {
     			insert_dev(target, div3, anchor);
@@ -1139,13 +1147,20 @@
     			current = true;
 
     			if (!mounted) {
-    				dispose = listen_dev(div0, "click", /*setAbility*/ ctx[1](/*ability*/ ctx[4]), false, false, false);
+    				dispose = listen_dev(div0, "click", /*rollDie*/ ctx[2](/*ability*/ ctx[5]), false, false, false);
     				mounted = true;
     			}
     		},
     		p: function update(new_ctx, dirty) {
     			ctx = new_ctx;
-    			if ((!current || dirty & /*rolledAbilities*/ 1) && t3_value !== (t3_value = (/*rolledAbilities*/ ctx[0]?.[/*ability*/ ctx[4]] || "_") + "")) set_data_dev(t3, t3_value);
+
+    			if (!current || dirty & /*diceRollingInProgress*/ 2 && div0_class_value !== (div0_class_value = "" + (null_to_empty(`${/*diceRollingInProgress*/ ctx[1][/*ability*/ ctx[5]]
+			? "rolling"
+			: ""} flex justify-center items-center h-14 w-16 cursor-pointer`) + " svelte-1enccg3"))) {
+    				attr_dev(div0, "class", div0_class_value);
+    			}
+
+    			if ((!current || dirty & /*rolledAbilities*/ 1) && t3_value !== (t3_value = (/*rolledAbilities*/ ctx[0]?.[/*ability*/ ctx[5]] || "_") + "")) set_data_dev(t3, t3_value);
     		},
     		i: function intro(local) {
     			if (current) return;
@@ -1168,7 +1183,7 @@
     		block,
     		id: create_each_block.name,
     		type: "each",
-    		source: "(24:6) {#each abilities as ability, idx}",
+    		source: "(38:6) {#each abilities as ability, idx}",
     		ctx
     	});
 
@@ -1183,7 +1198,7 @@
     	let div2;
     	let div1;
     	let current;
-    	let each_value = /*abilities*/ ctx[2];
+    	let each_value = /*abilities*/ ctx[3];
     	validate_each_argument(each_value);
     	let each_blocks = [];
 
@@ -1211,15 +1226,15 @@
 
     			set_style(h2, "font-family", "ScalaSans-Regular");
     			attr_dev(h2, "class", "pb-2 text-3xl font-bold");
-    			add_location(h2, file$1, 14, 4, 495);
-    			add_location(div0, file$1, 13, 2, 485);
+    			add_location(h2, file$1, 28, 4, 911);
+    			add_location(div0, file$1, 27, 2, 901);
     			attr_dev(div1, "class", "w-1/2 flex flex-row justify-between text-2xl");
-    			add_location(div1, file$1, 22, 4, 739);
+    			add_location(div1, file$1, 36, 4, 1155);
     			attr_dev(div2, "class", "pt-8 pb-16 w-full flex flex-row justify-center");
     			set_style(div2, "font-family", "ScalaSans-Regular");
-    			add_location(div2, file$1, 18, 2, 623);
+    			add_location(div2, file$1, 32, 2, 1039);
     			attr_dev(div3, "class", "w-full flex flex-col justify-center items-center ");
-    			add_location(div3, file$1, 12, 0, 419);
+    			add_location(div3, file$1, 26, 0, 835);
     		},
     		l: function claim(nodes) {
     			throw new Error("options.hydrate only works if the component was compiled with the `hydratable: true` option");
@@ -1239,8 +1254,8 @@
     			current = true;
     		},
     		p: function update(ctx, [dirty]) {
-    			if (dirty & /*getAnimationDelayStyle, rolledAbilities, abilities, setAbility*/ 15) {
-    				each_value = /*abilities*/ ctx[2];
+    			if (dirty & /*getAnimationDelayStyle, rolledAbilities, abilities, diceRollingInProgress, rollDie*/ 31) {
+    				each_value = /*abilities*/ ctx[3];
     				validate_each_argument(each_value);
     				let i;
 
@@ -1309,8 +1324,22 @@
     	
     	let { rolledAbilities } = $$props;
 
-    	const setAbility = ability => () => {
-    		$$invalidate(0, rolledAbilities = Object.assign(Object.assign({}, rolledAbilities), { [ability]: roll3D6() }));
+    	let diceRollingInProgress = {
+    		STR: false,
+    		INT: false,
+    		WIS: false,
+    		DEX: false,
+    		CON: false,
+    		CHA: false
+    	};
+
+    	const rollDie = ability => () => {
+    		if (diceRollingInProgress[ability]) {
+    			$$invalidate(0, rolledAbilities = Object.assign(Object.assign({}, rolledAbilities), { [ability]: roll3D6() }));
+    			$$invalidate(1, diceRollingInProgress = Object.assign(Object.assign({}, diceRollingInProgress), { [ability]: false }));
+    		} else {
+    			$$invalidate(1, diceRollingInProgress = Object.assign(Object.assign({}, diceRollingInProgress), { [ability]: true }));
+    		}
     	};
 
     	const abilities = ["STR", "INT", "WIS", "DEX", "CON", "CHA"];
@@ -1329,20 +1358,28 @@
     		roll3D6,
     		D20,
     		rolledAbilities,
-    		setAbility,
+    		diceRollingInProgress,
+    		rollDie,
     		abilities,
     		getAnimationDelayStyle
     	});
 
     	$$self.$inject_state = $$props => {
     		if ("rolledAbilities" in $$props) $$invalidate(0, rolledAbilities = $$props.rolledAbilities);
+    		if ("diceRollingInProgress" in $$props) $$invalidate(1, diceRollingInProgress = $$props.diceRollingInProgress);
     	};
 
     	if ($$props && "$$inject" in $$props) {
     		$$self.$inject_state($$props.$$inject);
     	}
 
-    	return [rolledAbilities, setAbility, abilities, getAnimationDelayStyle];
+    	return [
+    		rolledAbilities,
+    		diceRollingInProgress,
+    		rollDie,
+    		abilities,
+    		getAnimationDelayStyle
+    	];
     }
 
     class RollStats extends SvelteComponentDev {

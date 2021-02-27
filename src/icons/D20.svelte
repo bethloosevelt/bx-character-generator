@@ -8,7 +8,7 @@
 <svg
   {style}
   xmlns="http://www.w3.org/2000/svg"
-  viewBox="0 0 100 125"
+  viewBox="0 0 100 100"
   fill="currentColor"
   width="48"
   height="48"

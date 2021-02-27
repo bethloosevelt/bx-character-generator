@@ -6,11 +6,30 @@
 
   export let rolledAbilities: RolledAbilities | null;
 
-  const setAbility = (ability: Ability) => () => {
-    rolledAbilities = {
-      ...rolledAbilities,
-      [ability]: roll3D6(),
-    };
+  let diceRollingInProgress: { [k in Ability]: boolean } = {
+    STR: false,
+    INT: false,
+    WIS: false,
+    DEX: false,
+    CON: false,
+    CHA: false,
+  };
+  const rollDie = (ability: Ability) => () => {
+    if (diceRollingInProgress[ability]) {
+      rolledAbilities = {
+        ...rolledAbilities,
+        [ability]: roll3D6(),
+      };
+      diceRollingInProgress = {
+        ...diceRollingInProgress,
+        [ability]: false,
+      };
+    } else {
+      diceRollingInProgress = {
+        ...diceRollingInProgress,
+        [ability]: true,
+      };
+    }
   };
 
   const abilities: Array<Ability> = ["STR", "INT", "WIS", "DEX", "CON", "CHA"];
@@ -35,8 +54,10 @@
           style={getAnimationDelayStyle(idx)}
         >
           <div
-            class="flex justify-center items-center h-14 w-16 cursor-pointer"
-            on:click={setAbility(ability)}
+            class={`${
+              diceRollingInProgress[ability] ? "rolling" : ""
+            } flex justify-center items-center h-14 w-16 cursor-pointer`}
+            on:click={rollDie(ability)}
           >
             <D20 />
           </div>
@@ -61,9 +82,24 @@
       opacity: 1;
     }
   }
+  @keyframes roll {
+    0% {
+      transform: rotate(0deg);
+    }
+    50% {
+      transform: rotate(180deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
   .slide-up {
     animation: slideUp;
     animation-duration: 150ms;
     animation-timing-function: cubic-bezier();
+  }
+  .rolling {
+    animation: roll 500ms infinite;
+    animation-timing-function: linear;
   }
 </style>
