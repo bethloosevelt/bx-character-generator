@@ -1,4 +1,4 @@
-<div id="border" class="relative rounded border-dark-gray border-2">
+<div id="border" class="relative rounded border-dark-gray border-2 bg-white">
   <div id="top-left" class="dot absolute rounded-full bg-dark-gray" />
   <div id="top-right" class="dot absolute rounded-full bg-dark-gray" />
   <div id="center-left" class="dot absolute rounded-full bg-dark-gray" />
@@ -9,35 +9,36 @@
 
 <style>
   #border {
-    height: 32px;
-    width: 32px;
+    box-sizing: content-box;
+    height: 48px;
+    width: 48px;
   }
   .dot {
-    height: 7px;
-    width: 7px;
+    height: 12px;
+    width: 12px;
   }
   #top-left {
-    top: 3px;
-    left: 3px;
+    top: 4px;
+    left: 4px;
   }
   #top-right {
-    top: 3px;
-    left: 18.5px;
+    top: 4px;
+    left: 32px;
   }
   #center-left {
-    top: 10.5px;
-    left: 18.5px;
+    top: 18px;
+    left: 4px;
   }
   #center-right {
-    top: 10.5px;
-    left: 3px;
+    top: 18px;
+    left: 32px;
   }
   #bottom-left {
-    top: 18.5px;
-    left: 3px;
+    top: 32px;
+    left: 4px;
   }
   #bottom-right {
-    top: 18.5px;
-    left: 18.5px;
+    top: 32px;
+    left: 32px;
   }
 </style>

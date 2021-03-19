@@ -1,55 +1,27 @@
 <script lang="ts">
   import { roll3D6 } from "../util/dice";
-  import D20 from "../icons/D20.svelte";
   import type { RolledAbilities } from "../util/abilityModifiers";
   import type { Ability } from "../characterClasses/types";
-  import D6One from "../icons/d6/One.svelte";
-  import D6Two from "../icons/d6/Two.svelte";
-  import D6Three from "../icons/d6/Three.svelte";
-  import D6Four from "../icons/d6/Four.svelte";
-  import D6Five from "../icons/d6/Five.svelte";
-  import D6Six from "../icons/d6/Six.svelte";
+  import D6Trio from "../icons/d6/RollableTrio.svelte";
 
-  export let rolledAbilities: RolledAbilities | null;
+  export let rolledAbilities: RolledAbilities;
 
-  let diceRollingInProgress: { [k in Ability]: boolean } = {
-    STR: false,
-    INT: false,
-    WIS: false,
-    DEX: false,
-    CON: false,
-    CHA: false,
+  rolledAbilities = {
+    STR: 0,
+    INT: 0,
+    WIS: 0,
+    DEX: 0,
+    CON: 0,
+    CHA: 0,
   };
-  const rollDie = (ability: Ability) => () => {
-    if (diceRollingInProgress[ability]) {
-      rolledAbilities = {
-        ...rolledAbilities,
-        [ability]: roll3D6(),
-      };
-      diceRollingInProgress = {
-        ...diceRollingInProgress,
-        [ability]: false,
-      };
-    } else {
-      diceRollingInProgress = {
-        ...diceRollingInProgress,
-        [ability]: true,
-      };
-    }
-  };
+  $: abilityValues = Object.values(rolledAbilities || {});
+  const abilities = ["STR", "INT", "WIS", "DEX", "CON", "CHA"];
 
-  const abilities: Array<Ability> = ["STR", "INT", "WIS", "DEX", "CON", "CHA"];
   const getAnimationDelayStyle = (idx: number) =>
     `animation-delay: ${25 * idx}ms;`;
 </script>
 
 <div class="position w-full flex flex-col justify-center items-center ">
-  <D6One />
-  <D6Two />
-  <D6Three />
-  <D6Four />
-  <D6Five />
-  <D6Six />
   <div>
     <h2 style="font-family: ScalaSans-Regular;" class="pb-2 text-3xl font-bold">
       Click to Roll Abilities
@@ -65,17 +37,19 @@
           class="slide-up flex flex-col items-center"
           style={getAnimationDelayStyle(idx)}
         >
-          <div
-            class={`${
-              diceRollingInProgress[ability] ? "rolling" : ""
-            } flex justify-center items-center h-14 w-16 cursor-pointer`}
-            on:click={rollDie(ability)}
-          >
-            <D20 />
+          <div class="pb-4">
+            <D6Trio
+              onChange={(sum) => {
+                rolledAbilities = {
+                  ...rolledAbilities,
+                  [ability]: sum,
+                };
+              }}
+            />
           </div>
           <div>{ability}</div>
           <div>
-            {rolledAbilities?.[ability] || "_"}
+            {abilityValues[idx] === 0 ? "_" : abilityValues[idx]}
           </div>
         </div>
       {/each}
@@ -94,24 +68,9 @@
       opacity: 1;
     }
   }
-  @keyframes roll {
-    0% {
-      transform: rotate(0deg);
-    }
-    50% {
-      transform: rotate(180deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
   .slide-up {
     animation: slideUp;
     animation-duration: 150ms;
     animation-timing-function: cubic-bezier();
-  }
-  .rolling {
-    animation: roll 500ms infinite;
-    animation-timing-function: linear;
   }
 </style>

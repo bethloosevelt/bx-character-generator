@@ -1,23 +1,24 @@
-<div id="border" class="relative rounded border-dark-gray border-2">
+<div id="border" class="relative rounded border-dark-gray border-2 bg-white">
   <div id="top-left" class="dot absolute rounded-full bg-dark-gray" />
   <div id="bottom-right" class="dot absolute rounded-full bg-dark-gray" />
 </div>
 
 <style>
   #border {
-    height: 32px;
-    width: 32px;
+    box-sizing: content-box;
+    height: 48px;
+    width: 48px;
   }
   .dot {
-    height: 7px;
-    width: 7px;
+    height: 12px;
+    width: 12px;
   }
   #top-left {
-    top: 3.5px;
-    left: 3.5px;
+    top: 4px;
+    left: 4px;
   }
   #bottom-right {
-    top: 18.5px;
-    left: 18.5px;
+    top: 32px;
+    left: 32px;
   }
 </style>
