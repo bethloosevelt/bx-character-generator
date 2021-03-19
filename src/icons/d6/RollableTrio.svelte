@@ -32,7 +32,7 @@
   };
 </script>
 
-<div id="container" class="relative flex flex-col justify-between slide-up-1">
+<div id="container" class="relative flex flex-col justify-between">
   <div class={`${rolling ? "rolling-1" : ""} p-1`}>
     <div>
       {#if shownDice[0] === 1}
@@ -103,33 +103,6 @@
 </div>
 
 <style>
-  @keyframes slideUp {
-    from {
-      transform: translateY(50px);
-      opacity: 0;
-    }
-    to {
-      transform: translateY(0px);
-      opacity: 1;
-    }
-  }
-  .slide-up-1 {
-    animation: slideUp;
-    animation-duration: 150ms;
-    animation-timing-function: cubic-bezier();
-  }
-  .slide-up-2 {
-    animation: slideUp;
-    animation-duration: 225ms;
-    animation-delay: 32.5ms;
-    animation-timing-function: cubic-bezier();
-  }
-  .slide-up-3 {
-    animation: slideUp;
-    animation-duration: 300ms;
-    animation-delay: 75ms;
-    animation-timing-function: cubic-bezier();
-  }
   @keyframes rolling {
     0% {
       transform: translate(0px, 0px) rotate(0deg);
