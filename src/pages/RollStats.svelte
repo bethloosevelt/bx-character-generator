@@ -3,6 +3,12 @@
   import D20 from "../icons/D20.svelte";
   import type { RolledAbilities } from "../util/abilityModifiers";
   import type { Ability } from "../characterClasses/types";
+  import D6One from "../icons/d6/One.svelte";
+  import D6Two from "../icons/d6/Two.svelte";
+  import D6Three from "../icons/d6/Three.svelte";
+  import D6Four from "../icons/d6/Four.svelte";
+  import D6Five from "../icons/d6/Five.svelte";
+  import D6Six from "../icons/d6/Six.svelte";
 
   export let rolledAbilities: RolledAbilities | null;
 
@@ -37,14 +43,20 @@
     `animation-delay: ${25 * idx}ms;`;
 </script>
 
-<div class="w-full flex flex-col justify-center items-center ">
+<div class="position w-full flex flex-col justify-center items-center ">
+  <D6One />
+  <D6Two />
+  <D6Three />
+  <D6Four />
+  <D6Five />
+  <D6Six />
   <div>
     <h2 style="font-family: ScalaSans-Regular;" class="pb-2 text-3xl font-bold">
       Click to Roll Abilities
     </h2>
   </div>
   <div
-    class="pt-8 pb-16 w-full flex flex-row justify-center"
+    class="select-none pt-8 pb-16 w-full flex flex-row justify-center"
     style="font-family: ScalaSans-Regular;"
   >
     <div class="w-1/2 flex flex-row justify-between text-2xl">
